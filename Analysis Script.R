@@ -30,6 +30,12 @@ Most_Expensive
 Mobile_phone1$os <- ifelse(Mobile_phone1$os == "IOS", "iOS", 
          ifelse(Mobile_phone1$os == "Windows", "Windows Mobile",
                 ifelse(Mobile_phone1$os == "", "Unknown", Mobile_phone1$os)))
- 
+
+#Checking  
 ggplot(Mobile_phone1, aes(x = os, y = price)) + geom_point(aes(color = os))
-  
+
+# Renaming all empty rows in the data set to Unknown.
+Mobile_phone1 <- Mobile_phone1 |>
+  mutate(across(everything(), ~ifelse(.=="", "Unknown",.)))
+
+
