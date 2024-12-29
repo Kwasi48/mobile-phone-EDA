@@ -43,8 +43,18 @@ glimpse(Mobile_phone1)
 #group mobile phones by Region 
 Region_data <- Mobile_phone1 |> 
   select(region, location) |> 
-  group_by(region) 
+  group_by(region) |>
+Region_data
+
+Region_data <- Mobile_phone1 |> 
+  select(region, location) |> 
+  group_by(region, location) |>
+  count()
  Region_data
 
 ggplot(Region_data, aes(x = region )) + geom_bar(aes( fill = region)) + 
   ylab("Total number of phones ")+  labs(title = "Phones by Region")
+
+#faceting  brand by region 
+ggplot(Mobile_phone1, aes( x= brand)) + geom_bar(aes(fill = brand, )) + facet_grid(~ region) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
