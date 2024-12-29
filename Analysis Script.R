@@ -17,7 +17,7 @@ Mobile_phone1 |>
 
 #Find the phones with the most expensive OS 
 
-Most_Expensive <- Mobile_phone |>
+Most_Expensive <- Mobile_phone1 |>
   select (os, price, brand) |>
   group_by(price) |> 
   arrange(desc(price))
@@ -38,4 +38,13 @@ ggplot(Mobile_phone1, aes(x = os, y = price)) + geom_point(aes(color = os))
 Mobile_phone1 <- Mobile_phone1 |>
   mutate(across(everything(), ~ifelse(.=="", "Unknown",.)))
 
+glimpse(Mobile_phone1)
 
+#group mobile phones by Region 
+Region_data <- Mobile_phone1 |> 
+  select(region, location) |> 
+  group_by(region) 
+ Region_data
+
+ggplot(Region_data, aes(x = region )) + geom_bar(aes( fill = region)) + 
+  ylab("Total number of phones ")+  labs(title = "Phones by Region")
