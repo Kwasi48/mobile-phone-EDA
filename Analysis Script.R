@@ -82,6 +82,7 @@ Mobile_phone1 |>
   group_by(os) |>
   count()
 
-ggplot(Mobile_phone1, aes(x = os)) + geom_bar(aes(fill=color))
+ggplot(Mobile_phone1, aes(x = os)) + geom_bar(aes(fill=color)) + 
+  labs( y = "Number of phones", x = "Operating System", title = "Number of Phones by Operating System")
 
  
