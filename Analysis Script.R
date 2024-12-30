@@ -15,12 +15,13 @@ Mobile_phone1 |>
   filter( brand == "Samsung") |> 
   count()
 
-#Find the phones with the most expensive OS 
+#Find the most expensive phones 
 
 Most_Expensive <- Mobile_phone1 |>
-  select (os,  brand,model, price ) |>
+  select (os,  brand,model, price, resolution, battery.mAh. ) |>
   group_by(price) |> 
-  arrange(desc(price))
+  arrange(desc(price)) |> 
+  head(10)
 Most_Expensive
  
 
@@ -39,6 +40,10 @@ Mobile_phone1 <- Mobile_phone1 |>
   mutate(across(everything(), ~ifelse(.=="", "Unknown",.)))
 
 glimpse(Mobile_phone1)
+
+#Inserting Battery.mAh. for Galaxy Z fold 4
+Mobile_phone1 <- Mobile_phone1 |>
+  mutate(battery.mAh. = ifelse(model == "Galaxy Z Fold4",4400, battery.mAh. ) )
 
 #group mobile phones by Region 
 Region_data <- Mobile_phone1 |> 
@@ -60,4 +65,17 @@ ggplot(Region_data, aes(x = region )) + geom_bar(aes( fill = region)) +
 ggplot(Mobile_phone1, aes( x= brand)) + geom_bar(aes(fill = brand, )) + facet_grid(~ region) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 
+#Highest battery capacity  phones
+Mobile_phone1 |>
+  select(brand, model, battery.mAh., resolution) |>
+  arrange(desc(battery.mAh.)) |>
+  head(5) 
+ 
 
+#Phones with the lowest Battery capacity
+Mobile_phone1 |>
+  select(brand, model, battery.mAh., resolution ) |>
+  arrange(desc(battery.mAh.)) |>
+  na.omit(battery.mAh.) |>
+  tail(5) 
+ 
