@@ -18,7 +18,7 @@ Mobile_phone1 |>
 #Find the phones with the most expensive OS 
 
 Most_Expensive <- Mobile_phone1 |>
-  select (os, price, brand) |>
+  select (os,  brand,model, price ) |>
   group_by(price) |> 
   arrange(desc(price))
 Most_Expensive
@@ -59,3 +59,5 @@ ggplot(Region_data, aes(x = region )) + geom_bar(aes( fill = region)) +
 #faceting  brand by region 
 ggplot(Mobile_phone1, aes( x= brand)) + geom_bar(aes(fill = brand, )) + facet_grid(~ region) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+
