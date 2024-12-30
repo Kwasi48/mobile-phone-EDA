@@ -10,10 +10,7 @@ view(Mobile_phone1)
 
 
 
-Mobile_phone1 |>
-  select(brand, model) |> 
-  filter( brand == "Samsung") |> 
-  count()
+
 
 #Find the most expensive phones 
 
@@ -57,7 +54,7 @@ Region_data <- Mobile_phone1 |>
   group_by(region, location) |>
   count()
  Region_data
-
+#graphics of phone by region
 ggplot(Region_data, aes(x = region )) + geom_bar(aes( fill = region)) + 
   ylab("Total number of phones ")+  labs(title = "Phones by Region")
 
@@ -78,4 +75,13 @@ Mobile_phone1 |>
   arrange(desc(battery.mAh.)) |>
   na.omit(battery.mAh.) |>
   tail(5) 
+
+#Share Market of various OS (Android going to dominate Obviously 😁) 
+Mobile_phone1 |>
+  select(os) |> 
+  group_by(os) |>
+  count()
+
+ggplot(Mobile_phone1, aes(x = os)) + geom_bar(aes(fill=color))
+
  
