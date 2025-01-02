@@ -76,13 +76,13 @@ Mobile_phone1 |>
   na.omit(battery.mAh.) |>
   tail(5) 
 
-#Share Market of various OS (Android going to dominate Obviously 😁) 
+#Share Market of various OS by color (Android going to dominate Obviously 😁) 
 Mobile_phone1 |>
-  select(os) |> 
-  group_by(os) |>
-  count()
+  select(os, color) |> 
+  group_by(os, color) |>
+  count() 
+ 
 
 ggplot(Mobile_phone1, aes(x = os)) + geom_bar(aes(fill=color)) + 
   labs( y = "Number of phones", x = "Operating System", title = "Number of Phones by Operating System")
 
- 
