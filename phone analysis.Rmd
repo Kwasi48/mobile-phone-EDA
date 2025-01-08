@@ -10,6 +10,7 @@ output:
 This is a Phone Analysis Conducted in Ghana.
 
 ```{r}
+#loading the required package needed for the analysis.
 library(tidyverse)
 
 ```
@@ -20,4 +21,29 @@ Mobile_phone1 <- Mobile_phone |>
   rename(price = price...)
 ```
 
- 
+ Exploring the most Expensive Phones.
+```{r}
+#Find the most expensive phones 
+
+Most_Expensive <- Mobile_phone1 |>
+  select (os,  brand,model, price, resolution, battery.mAh. ) |>
+  group_by(price) |> 
+  arrange(desc(price)) |> 
+  head(10)
+Most_Expensive
+```
+Unsurprisingly, Iphones and Samsung have the most expensive phones.
+
+
+A bit of Data Wrangling. 
+Renaming IOS to iOS and Windows to Windows Phone.
+```{r}
+Mobile_phone1$os <- ifelse(Mobile_phone1$os == "IOS", "iOS", 
+         ifelse(Mobile_phone1$os == "Windows", "Windows Mobile",
+                ifelse(Mobile_phone1$os == "", "Unknown", Mobile_phone1$os)))
+```
+Checking.....
+```{r}
+ggplot(Mobile_phone1, aes(x = os, y = price)) + geom_point(aes(color = os))
+```
+
