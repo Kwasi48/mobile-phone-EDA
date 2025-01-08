@@ -46,6 +46,7 @@ Mobile_phone1 <- Mobile_phone1 |>
 Region_data <- Mobile_phone1 |> 
   select(region, location) |> 
   group_by(region) 
+
 Region_data
 
 Region_data <- Mobile_phone1 |> 
@@ -74,6 +75,11 @@ Mobile_phone1 |>
   arrange(desc(battery.mAh.)) |>
   na.omit(battery.mAh.) |>
   tail(5) 
+
+#Average Price of the Phones 
+Mobile_phone1 |>
+  select(os) |> 
+   group_by(price)
 
 #Share Market of various OS by color (Android going to dominate Obviously 😁) 
 Mobile_phone1 |>

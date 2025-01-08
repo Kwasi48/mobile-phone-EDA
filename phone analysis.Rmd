@@ -83,4 +83,25 @@ Region_data <- Mobile_phone1 |>
 ggplot(Region_data, aes(x = region )) + geom_bar(aes( fill = region)) + 
   ylab("Total number of phones ")+  labs(title = "Phones by Region")
 ```
+```{r}
+#faceting  brand by region 
+ggplot(Mobile_phone1, aes( x= brand)) + geom_bar(aes(fill = brand, )) + facet_grid(~ region) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```
+Exploring Devices with the highest Battery Capacity
+```{r}
+#Highest battery capacity  phones
+Mobile_phone1 |>
+  select(brand, model, battery.mAh., resolution) |>
+  arrange(desc(battery.mAh.)) |>
+  head(5) 
+```
+Now we delve with devices with the lowest battery Capacity.
+```{r}
+Mobile_phone1 |>
+  select(brand, model, battery.mAh., resolution ) |>
+  arrange(desc(battery.mAh.)) |>
+  na.omit(battery.mAh.) |>
+  tail(5) 
+```
 
