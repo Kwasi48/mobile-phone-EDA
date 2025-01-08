@@ -46,7 +46,6 @@ Mobile_phone1 <- Mobile_phone1 |>
 Region_data <- Mobile_phone1 |> 
   select(region, location) |> 
   group_by(region) 
-
 Region_data
 
 Region_data <- Mobile_phone1 |> 

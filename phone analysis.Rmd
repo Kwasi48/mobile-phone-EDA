@@ -32,7 +32,7 @@ Most_Expensive <- Mobile_phone1 |>
   head(10)
 Most_Expensive
 ```
-Unsurprisingly, Iphones and Samsung have the most expensive phones.
+Unsurprisingly, Apple and Samsung have the most expensive phones.
 
 
 A bit of Data Wrangling. 
@@ -45,5 +45,42 @@ Mobile_phone1$os <- ifelse(Mobile_phone1$os == "IOS", "iOS",
 Checking.....
 ```{r}
 ggplot(Mobile_phone1, aes(x = os, y = price)) + geom_point(aes(color = os))
+```
+
+Renaming all empty rows in the data to Unknown
+```{r}
+# Renaming all empty rows in the data set to Unknown.
+Mobile_phone1 <- Mobile_phone1 |>
+  mutate(across(everything(), ~ifelse(.=="", "Unknown",.)))
+
+head(Mobile_phone1)
+```
+
+Galaxy Z Fold 4 came without Battery Capacity. Manual Insertion had to be done.
+```{r}
+#Inserting Battery.mAh. for Galaxy Z fold 4
+Mobile_phone1 <- Mobile_phone1 |>
+  mutate(battery.mAh. = ifelse(model == "Galaxy Z Fold4",4400, battery.mAh. ))
+
+Mobile_phone1 |> select(brand, battery.mAh., model) |>
+  filter( model == "Galaxy Z Fold4")
+```
+
+Regional Analysis of Phones with Graphics
+```{r}
+Region_data <- Mobile_phone1 |> 
+  select(region, location) |> 
+  group_by(region)  |>
+  count()
+Region_data
+
+Region_data <- Mobile_phone1 |> 
+  select(region, location) |> 
+  group_by(region, location) |>
+  count()
+ Region_data
+#graphics of phone by region
+ggplot(Region_data, aes(x = region )) + geom_bar(aes( fill = region)) + 
+  ylab("Total number of phones ")+  labs(title = "Phones by Region")
 ```
 
