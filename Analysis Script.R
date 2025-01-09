@@ -77,9 +77,26 @@ Mobile_phone1 |>
   tail(5) 
 
 #Average Price of the Phones 
+android_avg <- Mobile_phone1 |>
+  select(os,price)|>
+  filter(os == 'Android') |>
+   mutate( mean(price)) |>
+  head(1)
+
+iOS_avg <- Mobile_phone1 |>
+  select(os,price)|>
+  filter(os == 'iOS') |>
+  mutate( mean(price)) |>
+  head(1)
+
 Mobile_phone1 |>
-  select(os) |> 
-   group_by(price)
+  summarise(
+  average_price_android = android_avg,
+  average_price_iOS = iOS_avg
+  )
+   
+
+
 
 #Share Market of various OS by color (Android going to dominate Obviously 😁) 
 Mobile_phone1 |>
