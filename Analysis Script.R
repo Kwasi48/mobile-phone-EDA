@@ -92,8 +92,14 @@ iOS_avg <- Mobile_phone1 |>
 Mobile_phone1 |>
   summarise(
   average_price_android = android_avg,
-  average_price_iOS = iOS_avg
   )
+
+
+Mobile_phone1 |>
+  summarise(
+    average_price_iOS = iOS_avg
+  )
+
    
 
 

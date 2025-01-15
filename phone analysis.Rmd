@@ -105,7 +105,7 @@ Mobile_phone1 |>
   tail(5) 
 ```
 ```{r}
-#Average Price of the Phones 
+#Average Price of Android and Ios phones 
 android_avg <- Mobile_phone1 |>
   select(os,price)|>
   filter(os == 'Android') |>
