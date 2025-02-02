@@ -43,7 +43,7 @@ sf_200_pop <- 1:num_trials |>
   mutate(n = n )
  
 
-sf_200_pop |> 
+sf_200_pop |>                      
   skim(mean_arr_delay)
 
 
@@ -75,3 +75,23 @@ sf_2009_bs <- 1:num_trials |>
 
 sf_2009_bs |>
   skim(q98)
+
+
+set.seed(1001)
+n_large <- 10000
+sf_10000_bs <- SF |> 
+  slice_sample(n = n_large, replace = FALSE)
+
+sf_200_bs <- 1:num_trials |>
+  map_dfr(~sf_10000_bs |>
+            slice_sample(n = n_large, replace = TRUE) |>
+            summarize(q98 = quantile(arr_delay, p = 0.98))
+  )
+
+sf_200_bs |>
+  skim(q98)
+
+
+SF |> 
+  filter(arr_delay >= 420) |>
+  select(month, day, dep_delay, arr_delay, carrier)
